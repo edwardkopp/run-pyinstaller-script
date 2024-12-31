@@ -36,10 +36,12 @@ runs:
         python-version: ${{inputs.python-version}}
         architecture: ${{inputs.architecture}}
     - name: Install PIP packages
+      shell: bash
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run packaging script
+      shell: bash
       run: python ${{inputs.script}}
     - name: Upload packaged output
       uses: actions/upload-artifact@v4
