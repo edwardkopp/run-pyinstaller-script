@@ -1,0 +1,44 @@
+name: "Run PyInstaller Script"
+description: "Run a specified Python script to run PyInstaller."
+author: "@edwardkopp"
+
+inputs:
+  python-version:
+    description: "Python version for environment to set up."
+    required: true
+    default: "3.12"
+  requirements:
+    description: "Path to requirements.txt file."
+    required: true
+    default: "requirements.txt"
+  script:
+    description: "Path to Python script to run PyInstaller."
+    required: true
+  output_directory:
+    description: "Path to PyInstaller output directory."
+    required: true
+    default: "./dist"
+  artifact_name:
+    description: "Name for artifact to be produced."
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{inputs.python-version}}
+    - name: Install PIP packages
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run packaging script
+      run: python ${{inputs.script}}
+    - name: Upload packaged output
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{inputs.artifact_name}}
+        path: ${{inputs.output_directory}}
