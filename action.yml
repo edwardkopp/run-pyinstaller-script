@@ -35,20 +35,12 @@ runs:
       with:
         python-version: ${{inputs.python-version}}
         architecture: ${{inputs.architecture}}
-    - name: Install PIP packages and run package script (Bash)
-      if: ${{runner.os != "Windows"}}
-      shell: bash
+    - name: Install PIP packages
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-        python ${{inputs.script}}
-    - name: Install PIP packages and run package script (CMD)
-      if: ${{runner.os == "Windows"}}
-      shell: cmd
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        python ${{inputs.script}}
+    - name: Run packaging script
+      run: python ${{inputs.script}}
     - name: Upload packaged output
       uses: actions/upload-artifact@v4
       with:
