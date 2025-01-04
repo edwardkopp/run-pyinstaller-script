@@ -20,7 +20,7 @@ inputs:
   output-directory:
     description: "Path to PyInstaller output directory."
     required: true
-    default: "./dist"
+    default: "./dist/*"
   artifact-name:
     description: "Name for artifact to be produced."
     required: true
