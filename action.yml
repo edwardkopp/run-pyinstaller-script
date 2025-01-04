@@ -20,7 +20,7 @@ inputs:
   output-directory:
     description: "Path to PyInstaller output directory."
     required: true
-    default: "./dist/*"
+    default: "./dist"
   artifact-name:
     description: "Name for artifact to be produced."
     required: true
@@ -48,10 +48,10 @@ runs:
       run: |
         if [ $RUNNER_OS == "Linux" ] || [ $RUNNER_OS == "macOS" ]
         then
-          zip -yr dist.zip ${{inputs.output-directory}}
+          zip -yr dist.zip ${{inputs.output-directory}}/*
         elif [ $RUNNER_OS == "Windows" ]
         then
-          7z a -r dist.zip ${{inputs.output-directory}}
+          7z a -r dist.zip ${{inputs.output-directory}}/*
         fi
     - name: Upload packaged output
       uses: actions/upload-artifact@v4
