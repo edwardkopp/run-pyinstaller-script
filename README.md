@@ -11,7 +11,7 @@ from os.path import join
 from shutil import rmtree
 
 
-APP_NAME = "Windows App"
+APP_NAME = "My App"
 MAIN_PY = "main.py"
 
 
